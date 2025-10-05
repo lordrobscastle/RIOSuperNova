@@ -229,7 +229,7 @@
                 width: 100%;
                 flex-direction: column;
                 align-items: stretch; /* Stretch items full width */
-                padding: 20px 0;
+                padding: 10px; /* Reduced padding on the container */
             }
 
             .nav-links.active {
@@ -237,8 +237,22 @@
             }
 
             .nav-links li {
-                margin: 0;
+                margin: 5px 0; /* Reduced margin between items */
                 margin-left: 0;
+            }
+            
+            /* --- MODIFIED FOR LARGER TAP TARGETS --- */
+            .nav-links a {
+                display: block;
+                padding: 15px; /* Increased padding for a larger button */
+                text-align: center;
+                border-radius: 8px;
+                transition: background-color 0.2s ease-in-out;
+            }
+            
+            /* --- Adds a visual effect when tapping a button --- */
+            .nav-links a:active {
+                background-color: rgba(255, 255, 255, 0.1);
             }
             
             .dropdown-content, .dropdown:hover .dropdown-content {
@@ -251,7 +265,7 @@
                 border-radius: 0;
                 min-width: auto;
                 padding: 0;
-                padding-left: 20px; /* Indent sub-items */
+                padding-left: 20px;
             }
 
             .dropdown.active .dropdown-content {
@@ -271,7 +285,7 @@
 
             .flyout-menu.active .flyout-submenu {
                 display: block;
-                padding-left: 20px; /* Further indent coach names */
+                padding-left: 20px;
             }
 
             .content-card { padding: 30px; }
@@ -388,55 +402,8 @@
             const hamburger = document.querySelector('.hamburger');
             const navLinks = document.querySelector('.nav-links');
             const teamDropdown = document.querySelector('.dropdown');
-            const coachesFlyout = document.querySelector('.flyout-menu'); // New selector for coaches menu
+            const coachesFlyout = document.querySelector('.flyout-menu');
 
-            // --- Hamburger Menu Toggle ---
             hamburger.addEventListener('click', () => {
                 navLinks.classList.toggle('active');
             });
-
-            // --- Mobile Dropdown Toggles ---
-            teamDropdown.addEventListener('click', (event) => {
-                if (window.innerWidth <= 768) {
-                    event.preventDefault();
-                    // Don't toggle coaches if it was the one clicked
-                    if (!event.target.closest('.flyout-menu')) {
-                       teamDropdown.classList.toggle('active');
-                    }
-                }
-            });
-
-            coachesFlyout.addEventListener('click', (event) => {
-                 if (window.innerWidth <= 768) {
-                    event.preventDefault();
-                    coachesFlyout.classList.toggle('active');
-                }
-            });
-
-            // --- Section Switching Logic ---
-            internalLinks.forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault(); 
-                    const targetId = link.getAttribute('data-target');
-                    const targetSection = document.querySelector(targetId);
-
-                    if (targetSection && !targetSection.classList.contains('is-visible')) {
-                        contentSections.forEach(section => {
-                            section.classList.remove('is-visible');
-                        });
-                        targetSection.classList.add('is-visible');
-                    }
-                    
-                    // Close mobile menu after clicking a link
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        teamDropdown.classList.remove('active');
-                        coachesFlyout.classList.remove('active');
-                    }
-                });
-            });
-        });
-    </script>
-
-</body>
-</html>
