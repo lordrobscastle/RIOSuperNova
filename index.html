@@ -10,9 +10,9 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #1d2b64, #f8cdda); /* A soft, modern gradient */
+            background: linear-gradient(135deg, #1d2b64, #f8cdda);
             color: #fff;
-            background-attachment: fixed; /* Keeps gradient stationary on scroll */
+            background-attachment: fixed;
         }
 
         /* --- Navigation Ribbon --- */
@@ -28,14 +28,14 @@
             width: 90%;
             z-index: 1000;
             display: flex;
-            justify-content: flex-start; /* Keeps items to the left on desktop */
+            justify-content: flex-start;
             align-items: center;
         }
 
         .nav-brand {
             font-size: 1.5rem;
             font-weight: bold;
-            margin-right: 50px; /* Adds space between brand and links */
+            margin-right: 50px;
         }
 
         .nav-links {
@@ -68,7 +68,6 @@
             color: #f8cdda;
         }
         
-        /* --- Hamburger Menu Icon (Hidden on Desktop) --- */
         .hamburger {
             display: none;
             cursor: pointer;
@@ -84,17 +83,16 @@
             transition: all 0.3s ease-in-out;
         }
 
-        /* --- Dropdown Menu --- */
+        /* --- Dropdown & Flyout Menu --- */
         .dropdown-content {
             display: none;
             position: absolute;
             top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0; /* Align with parent */
             background: rgba(25, 35, 80, 0.8);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            min-width: 160px;
+            min-width: 180px;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
             border-radius: 8px;
             padding: 10px 0;
@@ -106,13 +104,47 @@
             margin: 0;
         }
 
+        .dropdown-divider {
+            height: 1px;
+            margin: 8px 15px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
         .dropdown-content a {
-            padding: 12px 16px;
+            padding: 12px 20px;
             display: block;
-            text-align: center;
+            text-align: left; /* Align text to the left */
         }
 
         .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- Flyout Submenu --- */
+        .flyout-menu a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flyout-submenu {
+            display: none;
+            position: absolute;
+            left: 100%; /* Position to the right */
+            top: -10px; /* Adjust vertical alignment */
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            background: rgba(25, 35, 80, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            min-width: 180px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+
+        .flyout-menu:hover .flyout-submenu {
             display: block;
         }
 
@@ -133,7 +165,6 @@
             position: relative;
         }
 
-        /* --- Content Section Styling & Transitions --- */
         .content-section {
             display: none;
             opacity: 0;
@@ -154,17 +185,15 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
         
-        /* --- NEW PROFILE PICTURE STYLE --- */
         .profile-pic {
             width: 150px;
             height: 150px;
-            border-radius: 50%; /* Makes the image a circle */
-            object-fit: cover; /* Prevents the image from stretching */
+            border-radius: 50%;
+            object-fit: cover;
             margin-bottom: 20px;
             border: 3px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* --- Typography --- */
         h1 {
             font-size: 3rem;
             margin-bottom: 20px;
@@ -183,7 +212,7 @@
         /* --- MEDIA QUERY FOR MOBILE DEVICES --- */
         @media (max-width: 768px) {
             .navbar {
-                justify-content: space-between; /* Pushes hamburger to the right */
+                justify-content: space-between;
             }
 
             .hamburger {
@@ -199,7 +228,7 @@
                 backdrop-filter: blur(10px);
                 width: 100%;
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch; /* Stretch items full width */
                 padding: 20px 0;
             }
 
@@ -208,11 +237,12 @@
             }
 
             .nav-links li {
-                margin: 15px 0;
+                margin: 0;
                 margin-left: 0;
             }
             
-            .dropdown-content {
+            .dropdown-content, .dropdown:hover .dropdown-content {
+                display: none;
                 position: static;
                 transform: none;
                 background: none;
@@ -220,37 +250,34 @@
                 box-shadow: none;
                 border-radius: 0;
                 min-width: auto;
-                padding: 10px 0 0 0;
-            }
-
-            .dropdown:hover .dropdown-content {
-                display: none;
+                padding: 0;
+                padding-left: 20px; /* Indent sub-items */
             }
 
             .dropdown.active .dropdown-content {
                 display: block;
             }
             
-            .dropdown a {
-                text-align: center;
+            .flyout-menu, .flyout-submenu {
+                position: static;
+                padding: 0;
+                box-shadow: none;
+                background: none;
             }
 
-            .content-card {
-                padding: 30px;
-            }
-            
-            .profile-pic {
-                width: 120px;
-                height: 120px;
+            .flyout-menu:hover .flyout-submenu, .flyout-submenu {
+                display: none;
             }
 
-            h1 {
-                font-size: 2.2rem;
+            .flyout-menu.active .flyout-submenu {
+                display: block;
+                padding-left: 20px; /* Further indent coach names */
             }
 
-            p {
-                font-size: 1rem;
-            }
+            .content-card { padding: 30px; }
+            .profile-pic { width: 120px; height: 120px; }
+            h1 { font-size: 2.2rem; }
+            p { font-size: 1rem; }
         }
 
     </style>
@@ -264,6 +291,15 @@
             <li class="dropdown">
                 <a>Team ▾</a>
                 <ul class="dropdown-content">
+                    <li class="flyout-menu">
+                        <a>Coaches ▸</a>
+                        <ul class="flyout-submenu">
+                           <li><a data-target="#coach-yujin">Yujin</a></li>
+                           <li><a data-target="#coach-shirley">Shirley</a></li>
+                           <li><a data-target="#coach-victor">Victor</a></li>
+                        </ul>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
                     <li><a data-target="#adam">Adam</a></li>
                     <li><a data-target="#amery">Amery</a></li>
                     <li><a data-target="#annabelle">Annabelle</a></li>
@@ -286,14 +322,25 @@
 
     <main>
         <div class="container">
-
             <section id="about" class="content-section content-card is-visible">
                 <h1>Rio Super Nova ✨</h1>
-                <p>
-                    This page is dedicated to the Rio Super Nova Lego League.
-                </p>
+                <p>This page is dedicated to the Rio Super Nova Lego League.</p>
             </section>
-            
+            <section id="coach-yujin" class="content-section content-card">
+                <img class="profile-pic" src="https://via.placeholder.com/150" alt="Coach Yujin's profile picture">
+                <h1>Coach Yujin</h1>
+                <p>[Description for Coach Yujin.]</p>
+            </section>
+            <section id="coach-shirley" class="content-section content-card">
+                <img class="profile-pic" src="https://via.placeholder.com/150" alt="Coach Shirley's profile picture">
+                <h1>Coach Shirley</h1>
+                <p>[Description for Coach Shirley.]</p>
+            </section>
+            <section id="coach-victor" class="content-section content-card">
+                <img class="profile-pic" src="https://via.placeholder.com/150" alt="Coach Victor's profile picture">
+                <h1>Coach Victor</h1>
+                <p>[Description for Coach Victor.]</p>
+            </section>
             <section id="adam" class="content-section content-card">
                 <h1>Adam</h1>
                 <p>[This is where the description for Adam will go.]</p>
@@ -314,28 +361,23 @@
                 <h1>Edie</h1>
                 <p>[This is where the description for Edie will go.]</p>
             </section>
-
             <section id="landon" class="content-section content-card">
-                <img class="profile-pic" src="https://github.com/lordrobscastle/RIOSuperNova/blob/main/20250627_070336.jpg?raw=true" 			alt="Landon's profile picture">
+                <img class="profile-pic" src="https://github.com/lordrobscastle/RIOSuperNova/blob/main/20250627_070336.jpg?raw=true" alt="Landon's profile picture">
                 <h1>Landon</h1>
                 <p>Landon is in 6th grade and enjoys playing video games. This is Landon's 2nd year as part of Team RIO Super Nova.</p>
             </section>
-            
             <section id="michael" class="content-section content-card">
                 <h1>Michael</h1>
                 <p>[This is where the description for Michael will go.]</p>
             </section>
-
             <section id="mission" class="content-section content-card">
                 <h1>Our Mission</h1>
                 <p>[The team's mission statement will be displayed here.]</p>
             </section>
-
             <section id="gallery" class="content-section content-card">
                 <h1>Gallery</h1>
                 <p>[The team's photo gallery will be displayed here.]</p>
             </section>
-
         </div>
     </main>
 
@@ -346,16 +388,28 @@
             const hamburger = document.querySelector('.hamburger');
             const navLinks = document.querySelector('.nav-links');
             const teamDropdown = document.querySelector('.dropdown');
+            const coachesFlyout = document.querySelector('.flyout-menu'); // New selector for coaches menu
 
             // --- Hamburger Menu Toggle ---
             hamburger.addEventListener('click', () => {
                 navLinks.classList.toggle('active');
             });
 
-            // --- Team Dropdown Toggle on Mobile ---
+            // --- Mobile Dropdown Toggles ---
             teamDropdown.addEventListener('click', (event) => {
                 if (window.innerWidth <= 768) {
-                    teamDropdown.classList.toggle('active');
+                    event.preventDefault();
+                    // Don't toggle coaches if it was the one clicked
+                    if (!event.target.closest('.flyout-menu')) {
+                       teamDropdown.classList.toggle('active');
+                    }
+                }
+            });
+
+            coachesFlyout.addEventListener('click', (event) => {
+                 if (window.innerWidth <= 768) {
+                    event.preventDefault();
+                    coachesFlyout.classList.toggle('active');
                 }
             });
 
@@ -373,9 +427,11 @@
                         targetSection.classList.add('is-visible');
                     }
                     
+                    // Close mobile menu after clicking a link
                     if (navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
                         teamDropdown.classList.remove('active');
+                        coachesFlyout.classList.remove('active');
                     }
                 });
             });
