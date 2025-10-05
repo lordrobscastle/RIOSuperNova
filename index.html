@@ -312,16 +312,16 @@
                     <li class="flyout-menu">
                         <a>Coaches ▸</a>
                         <ul class="flyout-submenu">
-                           <li><a data-target="#coach-yujin">Yujin</a></li>
+                           <li><a data-target="#coach-yujian">Yujian</a></li>
                            <li><a data-target="#coach-shirley">Shirley</a></li>
                            <li><a data-target="#coach-victor">Victor</a></li>
                         </ul>
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a data-target="#adam">Adam</a></li>
-                    <li><a data-target="#amery">Amery</a></li>
+                    <li><a data-target="#amory">Amory</a></li>
                     <li><a data-target="#annabelle">Annabelle</a></li>
-                    <li><a data-target="#connor">Connor</a></li>
+                    <li><a data-target="#conner">Conner</a></li>
                     <li><a data-target="#edie">Edie</a></li>
                     <li><a data-target="#landon">Landon</a></li>
                     <li><a data-target="#michael">Michael</a></li>
@@ -365,3 +365,92 @@
             </section>
             <section id="amery" class="content-section content-card">
                 <h1>Amery</h1>
+                <p>[This is where the description for Amery will go.]</p>
+            </section>
+            <section id="annabelle" class="content-section content-card">
+                <h1>Annabelle</h1>
+                <p>[This is where the description for Annabelle will go.]</p>
+            </section>
+            <section id="connor" class="content-section content-card">
+                <h1>Connor</h1>
+                <p>[This is where the description for Connor will go.]</p>
+            </section>
+            <section id="edie" class="content-section content-card">
+                <h1>Edie</h1>
+                <p>[This is where the description for Edie will go.]</p>
+            </section>
+            <section id="landon" class="content-section content-card">
+                <img class="profile-pic" src="https://github.com/lordrobscastle/RIOSuperNova/blob/main/20250627_070336.jpg?raw=true" alt="Landon's profile picture">
+                <h1>Landon</h1>
+                <p>Landon is in 6th grade and enjoys playing video games. This is Landon's 2nd year as part of Team RIO Super Nova.</p>
+            </section>
+            <section id="michael" class="content-section content-card">
+                <h1>Michael</h1>
+                <p>[This is where the description for Michael will go.]</p>
+            </section>
+            <section id="mission" class="content-section content-card">
+                <h1>Our Mission</h1>
+                <p>[The team's mission statement will be displayed here.]</p>
+            </section>
+            <section id="gallery" class="content-section content-card">
+                <h1>Gallery</h1>
+                <p>[The team's photo gallery will be displayed here.]</p>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Modified selector to include the new brand link
+            const internalLinks = document.querySelectorAll('.navbar a[data-target]');
+            const contentSections = document.querySelectorAll('.content-section');
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const teamDropdown = document.querySelector('.dropdown');
+            const coachesFlyout = document.querySelector('.flyout-menu');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            teamDropdown.addEventListener('click', (event) => {
+                if (window.innerWidth <= 768) {
+                    event.preventDefault();
+                    if (!event.target.closest('.flyout-menu')) {
+                       teamDropdown.classList.toggle('active');
+                    }
+                }
+            });
+
+            coachesFlyout.addEventListener('click', (event) => {
+                 if (window.innerWidth <= 768) {
+                    event.preventDefault();
+                    coachesFlyout.classList.toggle('active');
+                }
+            });
+
+            internalLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); 
+                    const targetId = link.getAttribute('data-target');
+                    const targetSection = document.querySelector(targetId);
+
+                    if (targetSection && !targetSection.classList.contains('is-visible')) {
+                        contentSections.forEach(section => {
+                            section.classList.remove('is-visible');
+                        });
+                        targetSection.classList.add('is-visible');
+                    }
+                    
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        teamDropdown.classList.remove('active');
+                        coachesFlyout.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
