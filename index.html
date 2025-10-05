@@ -407,3 +407,45 @@
             hamburger.addEventListener('click', () => {
                 navLinks.classList.toggle('active');
             });
+
+            teamDropdown.addEventListener('click', (event) => {
+                if (window.innerWidth <= 768) {
+                    event.preventDefault();
+                    if (!event.target.closest('.flyout-menu')) {
+                       teamDropdown.classList.toggle('active');
+                    }
+                }
+            });
+
+            coachesFlyout.addEventListener('click', (event) => {
+                 if (window.innerWidth <= 768) {
+                    event.preventDefault();
+                    coachesFlyout.classList.toggle('active');
+                }
+            });
+
+            internalLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); 
+                    const targetId = link.getAttribute('data-target');
+                    const targetSection = document.querySelector(targetId);
+
+                    if (targetSection && !targetSection.classList.contains('is-visible')) {
+                        contentSections.forEach(section => {
+                            section.classList.remove('is-visible');
+                        });
+                        targetSection.classList.add('is-visible');
+                    }
+                    
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        teamDropdown.classList.remove('active');
+                        coachesFlyout.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
