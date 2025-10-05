@@ -24,17 +24,17 @@
             padding: 15px 5%;
             position: fixed;
             top: 0;
+            left: 0;
             width: 90%;
             z-index: 1000;
             display: flex;
-            justify-content: flex-start; /* Aligns items to the left */
+            justify-content: space-between; /* Reverted for mobile layout */
             align-items: center;
         }
 
         .nav-brand {
             font-size: 1.5rem;
             font-weight: bold;
-            margin-right: 50px; /* Added margin for spacing */
         }
 
         .nav-links {
@@ -49,10 +49,6 @@
             position: relative;
             margin-left: 30px;
         }
-        
-        .nav-links li:first-child {
-            margin-left: 0; /* Remove margin from the first link */
-        }
 
         .nav-links a {
             color: #fff;
@@ -65,6 +61,22 @@
 
         .nav-links a:hover {
             color: #f8cdda;
+        }
+        
+        /* --- Hamburger Menu Icon (Hidden on Desktop) --- */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
         }
 
         /* --- Dropdown Menu --- */
@@ -105,7 +117,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 80px 20px 20px 20px; /* Add padding-top to avoid overlap with fixed navbar */
+            padding: 80px 20px 20px 20px;
             box-sizing: border-box;
         }
 
@@ -113,34 +125,33 @@
             max-width: 800px;
             width: 100%;
             text-align: center;
-            position: relative; /* Needed for positioning content sections */
+            position: relative;
         }
 
         /* --- Content Section Styling & Transitions --- */
         .content-section {
-            display: none; /* Hide all sections by default */
+            display: none;
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
         .content-section.is-visible {
-            display: block; /* Show the active section */
+            display: block;
             opacity: 1;
         }
 
-        /* --- Content Card (reused for all sections) --- */
         .content-card {
-            background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-            backdrop-filter: blur(15px); /* The "frosted glass" effect */
-            -webkit-backdrop-filter: blur(15px); /* For Safari support */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 50px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
         
         /* --- Typography --- */
         h1 {
-            font-size: 3rem; /* 48px */
+            font-size: 3rem;
             margin-bottom: 20px;
             font-weight: 700;
             letter-spacing: 1px;
@@ -148,10 +159,78 @@
         }
 
         p {
-            font-size: 1.125rem; /* 18px */
+            font-size: 1.125rem;
             line-height: 1.8;
-            color: #e0e0e0; /* Slightly off-white for better readability */
+            color: #e0e0e0;
             margin: 0;
+        }
+
+        /* --- MEDIA QUERY FOR MOBILE DEVICES --- */
+        @media (max-width: 768px) {
+            .navbar {
+                justify-content: space-between;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none; /* Hide nav links by default */
+                position: absolute;
+                top: 65px; /* Position below navbar */
+                right: 0;
+                background: rgba(25, 35, 80, 0.9);
+                backdrop-filter: blur(10px);
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+            }
+
+            .nav-links.active {
+                display: flex; /* Show when active */
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+                margin-left: 0;
+            }
+            
+            .dropdown-content {
+                position: static;
+                transform: none;
+                background: none;
+                backdrop-filter: none;
+                box-shadow: none;
+                border-radius: 0;
+                min-width: auto;
+                padding: 10px 0 0 0;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none; /* Disable hover on mobile */
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block; /* Show with JS click */
+            }
+            
+            .dropdown a {
+                text-align: center;
+            }
+
+            .content-card {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
         }
 
     </style>
@@ -177,11 +256,15 @@
             <li><a data-target="#gallery">Gallery</a></li>
             <li><a href="https://info.firstinspires.org/first-age" target="_blank" rel="noopener noreferrer">FIRST LEGO League</a></li>
         </ul>
+        <div class="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
     </nav>
 
     <main>
         <div class="container">
-
             <section id="about" class="content-section content-card is-visible">
                 <h1>Rio Super Nova ✨</h1>
                 <p>
@@ -191,58 +274,42 @@
             
             <section id="adam" class="content-section content-card">
                 <h1>Adam</h1>
-                <p>
-                    [This is where the description for Adam will go.]
-                </p>
+                <p>[This is where the description for Adam will go.]</p>
             </section>
 
             <section id="amery" class="content-section content-card">
                 <h1>Amery</h1>
-                <p>
-                    [This is where the description for Amery will go.]
-                </p>
+                <p>[This is where the description for Amery will go.]</p>
             </section>
 
             <section id="annabelle" class="content-section content-card">
                 <h1>Annabelle</h1>
-                <p>
-                    [This is where the description for Annabelle will go.]
-                </p>
+                <p>[This is where the description for Annabelle will go.]</p>
             </section>
 
             <section id="connor" class="content-section content-card">
                 <h1>Connor</h1>
-                <p>
-                    [This is where the description for Connor will go.]
-                </p>
+                <p>[This is where the description for Connor will go.]</p>
             </section>
 
             <section id="edie" class="content-section content-card">
                 <h1>Edie</h1>
-                <p>
-                    [This is where the description for Edie will go.]
-                </p>
+                <p>[This is where the description for Edie will go.]</p>
             </section>
 
             <section id="landon" class="content-section content-card">
                 <h1>Landon</h1>
-                <p>
-                    Landon is in 6th grade and enjoys playing video games. This is Landon's 2nd year as part of Team RIO Super Nova.
-                </p>
+                <p>Landon is in 6th grade and enjoys playing video games. This is Landon's 2nd year as part of Team RIO Super Nova.</p>
             </section>
 
             <section id="michael" class="content-section content-card">
                 <h1>Michael</h1>
-                <p>
-                    [This is where the description for Michael will go.]
-                </p>
+                <p>[This is where the description for Michael will go.]</p>
             </section>
 
             <section id="gallery" class="content-section content-card">
                 <h1>Gallery</h1>
-                <p>
-                    [The team's photo gallery will be displayed here.]
-                </p>
+                <p>[The team's photo gallery will be displayed here.]</p>
             </section>
 
         </div>
@@ -250,29 +317,43 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Select all links that are meant to switch sections
             const internalLinks = document.querySelectorAll('.nav-links a[data-target]');
             const contentSections = document.querySelectorAll('.content-section');
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const teamDropdown = document.querySelector('.dropdown');
 
+            // --- Hamburger Menu Toggle ---
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // --- Team Dropdown Toggle on Mobile ---
+            teamDropdown.addEventListener('click', (event) => {
+                // Only activate on mobile view
+                if (window.innerWidth <= 768) {
+                    teamDropdown.classList.toggle('active');
+                }
+            });
+
+            // --- Section Switching Logic ---
             internalLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
-                    event.preventDefault(); // Prevent default link behavior
+                    event.preventDefault(); 
                     const targetId = link.getAttribute('data-target');
                     const targetSection = document.querySelector(targetId);
 
-                    // Don't do anything if the target is already visible
-                    if (targetSection.classList.contains('is-visible')) {
-                        return;
-                    }
-
-                    // Hide the currently visible section
-                    contentSections.forEach(section => {
-                        section.classList.remove('is-visible');
-                    });
-
-                    // Show the new target section
-                    if (targetSection) {
+                    if (!targetSection.classList.contains('is-visible')) {
+                        contentSections.forEach(section => {
+                            section.classList.remove('is-visible');
+                        });
                         targetSection.classList.add('is-visible');
+                    }
+                    
+                    // --- Close Mobile Menu After Clicking a Link ---
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        teamDropdown.classList.remove('active');
                     }
                 });
             });
