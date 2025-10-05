@@ -37,6 +37,13 @@
             font-weight: bold;
             margin-right: 50px;
         }
+        
+        /* --- New style to make brand link look like plain text --- */
+        .nav-brand a {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
         .nav-links {
             list-style: none;
@@ -88,7 +95,7 @@
             display: none;
             position: absolute;
             top: 100%;
-            left: 0; /* Align with parent */
+            left: 0;
             background: rgba(25, 35, 80, 0.8);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -114,14 +121,13 @@
         .dropdown-content a {
             padding: 12px 20px;
             display: block;
-            text-align: left; /* Align text to the left */
+            text-align: left;
         }
 
         .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        /* --- Flyout Submenu --- */
         .flyout-menu a {
             display: flex;
             justify-content: space-between;
@@ -131,8 +137,8 @@
         .flyout-submenu {
             display: none;
             position: absolute;
-            left: 100%; /* Position to the right */
-            top: -10px; /* Adjust vertical alignment */
+            left: 100%;
+            top: -10px;
             list-style: none;
             padding: 10px 0;
             margin: 0;
@@ -228,8 +234,8 @@
                 backdrop-filter: blur(10px);
                 width: 100%;
                 flex-direction: column;
-                align-items: stretch; /* Stretch items full width */
-                padding: 10px; /* Reduced padding on the container */
+                align-items: stretch;
+                padding: 10px;
             }
 
             .nav-links.active {
@@ -237,20 +243,18 @@
             }
 
             .nav-links li {
-                margin: 5px 0; /* Reduced margin between items */
+                margin: 5px 0;
                 margin-left: 0;
             }
             
-            /* --- MODIFIED FOR LARGER TAP TARGETS --- */
             .nav-links a {
                 display: block;
-                padding: 15px; /* Increased padding for a larger button */
+                padding: 15px;
                 text-align: center;
                 border-radius: 8px;
                 transition: background-color 0.2s ease-in-out;
             }
             
-            /* --- Adds a visual effect when tapping a button --- */
             .nav-links a:active {
                 background-color: rgba(255, 255, 255, 0.1);
             }
@@ -299,7 +303,7 @@
 <body>
 
     <nav class="navbar">
-        <div class="nav-brand">Rio Super Nova</div>
+        <div class="nav-brand"><a data-target="#about">Rio Super Nova</a></div>
         <ul class="nav-links">
             <li><a data-target="#about">Home</a></li>
             <li class="dropdown">
@@ -361,91 +365,3 @@
             </section>
             <section id="amery" class="content-section content-card">
                 <h1>Amery</h1>
-                <p>[This is where the description for Amery will go.]</p>
-            </section>
-            <section id="annabelle" class="content-section content-card">
-                <h1>Annabelle</h1>
-                <p>[This is where the description for Annabelle will go.]</p>
-            </section>
-            <section id="connor" class="content-section content-card">
-                <h1>Connor</h1>
-                <p>[This is where the description for Connor will go.]</p>
-            </section>
-            <section id="edie" class="content-section content-card">
-                <h1>Edie</h1>
-                <p>[This is where the description for Edie will go.]</p>
-            </section>
-            <section id="landon" class="content-section content-card">
-                <img class="profile-pic" src="https://github.com/lordrobscastle/RIOSuperNova/blob/main/20250627_070336.jpg?raw=true" alt="Landon's profile picture">
-                <h1>Landon</h1>
-                <p>Landon is in 6th grade and enjoys playing video games. This is Landon's 2nd year as part of Team RIO Super Nova.</p>
-            </section>
-            <section id="michael" class="content-section content-card">
-                <h1>Michael</h1>
-                <p>[This is where the description for Michael will go.]</p>
-            </section>
-            <section id="mission" class="content-section content-card">
-                <h1>Our Mission</h1>
-                <p>[The team's mission statement will be displayed here.]</p>
-            </section>
-            <section id="gallery" class="content-section content-card">
-                <h1>Gallery</h1>
-                <p>[The team's photo gallery will be displayed here.]</p>
-            </section>
-        </div>
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const internalLinks = document.querySelectorAll('.nav-links a[data-target]');
-            const contentSections = document.querySelectorAll('.content-section');
-            const hamburger = document.querySelector('.hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            const teamDropdown = document.querySelector('.dropdown');
-            const coachesFlyout = document.querySelector('.flyout-menu');
-
-            hamburger.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-            });
-
-            teamDropdown.addEventListener('click', (event) => {
-                if (window.innerWidth <= 768) {
-                    event.preventDefault();
-                    if (!event.target.closest('.flyout-menu')) {
-                       teamDropdown.classList.toggle('active');
-                    }
-                }
-            });
-
-            coachesFlyout.addEventListener('click', (event) => {
-                 if (window.innerWidth <= 768) {
-                    event.preventDefault();
-                    coachesFlyout.classList.toggle('active');
-                }
-            });
-
-            internalLinks.forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault(); 
-                    const targetId = link.getAttribute('data-target');
-                    const targetSection = document.querySelector(targetId);
-
-                    if (targetSection && !targetSection.classList.contains('is-visible')) {
-                        contentSections.forEach(section => {
-                            section.classList.remove('is-visible');
-                        });
-                        targetSection.classList.add('is-visible');
-                    }
-                    
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        teamDropdown.classList.remove('active');
-                        coachesFlyout.classList.remove('active');
-                    }
-                });
-            });
-        });
-    </script>
-
-</body>
-</html>
