@@ -154,6 +154,16 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
         
+        /* --- NEW PROFILE PICTURE STYLE --- */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Makes the image a circle */
+            object-fit: cover; /* Prevents the image from stretching */
+            margin-bottom: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
         /* --- Typography --- */
         h1 {
             font-size: 3rem;
@@ -228,6 +238,11 @@
             .content-card {
                 padding: 30px;
             }
+            
+            .profile-pic {
+                width: 120px;
+                height: 120px;
+            }
 
             h1 {
                 font-size: 2.2rem;
@@ -299,10 +314,13 @@
                 <h1>Edie</h1>
                 <p>[This is where the description for Edie will go.]</p>
             </section>
+
             <section id="landon" class="content-section content-card">
+                <img class="profile-pic" src="https://github.com/lordrobscastle/RIOSuperNova/blob/main/20250627_070336.jpg?raw=true" 			alt="Landon's profile picture">
                 <h1>Landon</h1>
                 <p>Landon is in 6th grade and enjoys playing video games. This is Landon's 2nd year as part of Team RIO Super Nova.</p>
             </section>
+            
             <section id="michael" class="content-section content-card">
                 <h1>Michael</h1>
                 <p>[This is where the description for Michael will go.]</p>
