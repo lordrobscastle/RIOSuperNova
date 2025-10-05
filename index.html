@@ -28,13 +28,14 @@
             width: 90%;
             z-index: 1000;
             display: flex;
-            justify-content: space-between; /* Reverted for mobile layout */
+            justify-content: flex-start; /* Keeps items to the left on desktop */
             align-items: center;
         }
 
         .nav-brand {
             font-size: 1.5rem;
             font-weight: bold;
+            margin-right: 50px; /* Adds space between brand and links */
         }
 
         .nav-links {
@@ -48,6 +49,10 @@
         .nav-links li {
             position: relative;
             margin-left: 30px;
+        }
+        
+        .nav-links li:first-child {
+            margin-left: 0;
         }
 
         .nav-links a {
@@ -168,7 +173,7 @@
         /* --- MEDIA QUERY FOR MOBILE DEVICES --- */
         @media (max-width: 768px) {
             .navbar {
-                justify-content: space-between;
+                justify-content: space-between; /* Pushes hamburger to the right */
             }
 
             .hamburger {
@@ -176,9 +181,9 @@
             }
 
             .nav-links {
-                display: none; /* Hide nav links by default */
+                display: none;
                 position: absolute;
-                top: 65px; /* Position below navbar */
+                top: 65px;
                 right: 0;
                 background: rgba(25, 35, 80, 0.9);
                 backdrop-filter: blur(10px);
@@ -189,7 +194,7 @@
             }
 
             .nav-links.active {
-                display: flex; /* Show when active */
+                display: flex;
             }
 
             .nav-links li {
@@ -209,11 +214,11 @@
             }
 
             .dropdown:hover .dropdown-content {
-                display: none; /* Disable hover on mobile */
+                display: none;
             }
 
             .dropdown.active .dropdown-content {
-                display: block; /* Show with JS click */
+                display: block;
             }
             
             .dropdown a {
@@ -253,6 +258,7 @@
                     <li><a data-target="#michael">Michael</a></li>
                 </ul>
             </li>
+            <li><a data-target="#mission">Mission</a></li>
             <li><a data-target="#gallery">Gallery</a></li>
             <li><a href="https://info.firstinspires.org/first-age" target="_blank" rel="noopener noreferrer">FIRST LEGO League</a></li>
         </ul>
@@ -265,6 +271,7 @@
 
     <main>
         <div class="container">
+
             <section id="about" class="content-section content-card is-visible">
                 <h1>Rio Super Nova ✨</h1>
                 <p>
@@ -276,35 +283,34 @@
                 <h1>Adam</h1>
                 <p>[This is where the description for Adam will go.]</p>
             </section>
-
             <section id="amery" class="content-section content-card">
                 <h1>Amery</h1>
                 <p>[This is where the description for Amery will go.]</p>
             </section>
-
             <section id="annabelle" class="content-section content-card">
                 <h1>Annabelle</h1>
                 <p>[This is where the description for Annabelle will go.]</p>
             </section>
-
             <section id="connor" class="content-section content-card">
                 <h1>Connor</h1>
                 <p>[This is where the description for Connor will go.]</p>
             </section>
-
             <section id="edie" class="content-section content-card">
                 <h1>Edie</h1>
                 <p>[This is where the description for Edie will go.]</p>
             </section>
-
             <section id="landon" class="content-section content-card">
                 <h1>Landon</h1>
                 <p>Landon is in 6th grade and enjoys playing video games. This is Landon's 2nd year as part of Team RIO Super Nova.</p>
             </section>
-
             <section id="michael" class="content-section content-card">
                 <h1>Michael</h1>
                 <p>[This is where the description for Michael will go.]</p>
+            </section>
+
+            <section id="mission" class="content-section content-card">
+                <h1>Our Mission</h1>
+                <p>[The team's mission statement will be displayed here.]</p>
             </section>
 
             <section id="gallery" class="content-section content-card">
@@ -330,7 +336,6 @@
 
             // --- Team Dropdown Toggle on Mobile ---
             teamDropdown.addEventListener('click', (event) => {
-                // Only activate on mobile view
                 if (window.innerWidth <= 768) {
                     teamDropdown.classList.toggle('active');
                 }
@@ -343,14 +348,13 @@
                     const targetId = link.getAttribute('data-target');
                     const targetSection = document.querySelector(targetId);
 
-                    if (!targetSection.classList.contains('is-visible')) {
+                    if (targetSection && !targetSection.classList.contains('is-visible')) {
                         contentSections.forEach(section => {
                             section.classList.remove('is-visible');
                         });
                         targetSection.classList.add('is-visible');
                     }
                     
-                    // --- Close Mobile Menu After Clicking a Link ---
                     if (navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
                         teamDropdown.classList.remove('active');
